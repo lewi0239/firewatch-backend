@@ -7,8 +7,12 @@ from app.schemas.item import FireData
 router = APIRouter()
 
 @router.get("/fires", response_model=List[FireData])
-def read_fires():
+def read_fires(country: str = "USA", day_range: int = 1):
     """
-    Endpoint to fetch fire data from the NASA FIRMS API.
+    Retrieve fire data from NASA FIRMS API.
+
+    - **country**: 3-letter country code (e.g., USA, CAN, MEX).
+    - **day_range**: Number of days of data to retrieve (1-10).
     """
-    return get_fire_data()
+    fire_data = get_fire_data(country=country, day_range=day_range)
+    return fire_data
